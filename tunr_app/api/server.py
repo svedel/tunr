@@ -5,11 +5,19 @@ from tunr_app.api.api_schemas import NewExperiment
 from tunr_app.services.data_validation import validate_exp_id
 
 
-app = FastAPI(title="Tunr", version="1.0.0")
+tags_metadata = [
+    {
+        "name": "Experiment",
+        "description": "Operations for experiments.",
+    }
+]
+
+
+app = FastAPI(title="Tunr", version="1.0.0", openapi_tags=tags_metadata)
 
 
 # === Create new experiment ===
-@app.post("/new_experiment")
+@app.post("/new_experiment", tags=["Experiment"])
 async def create_new_experiment(new_exp: NewExperiment):
     """
     create new experiment
@@ -23,7 +31,7 @@ async def create_new_experiment(new_exp: NewExperiment):
 
 
 # === get next experiment ===
-@app.get("/ask/{exp_id}")
+@app.get("/ask/{exp_id}", tags=["Experiment"])
 def ask_new_exp(exp_id: UUID):
     """
     get next experiment proposal
