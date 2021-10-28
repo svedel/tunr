@@ -22,5 +22,16 @@ services:
     ports:
       - "5000:5432"
 
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    env_file:
+      - ./tunr_app/.env
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+
 volumes:
   postgres_data:
